@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    run: busybox
+    visualize: "true"
+  name: busybox
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      run: busybox
+      visualize: "true"
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: busybox
+        visualize: "true"
+    spec:
+      containers:
+      - image: hypriot/rpi-busybox-httpd
+        name: busybox
+        resources: {}
+status: {}

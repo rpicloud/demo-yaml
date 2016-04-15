@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: config-service
+    visualize: "true"
+  name: config-service
+spec:
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: config-service
+        tier: backend
+        track: stable
+        run: config-service
+        visualize: "true"
+    spec:
+      containers:
+      - image: rpicloud/demo-config-service:dns-0.0.1
+        name: config-service

@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: dog-service
+    visualize: "true"
+  name: dog-service
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: dog-service
+        tier: backend
+        track: stable
+        run: dog-service
+        visualize: "true"
+    spec:
+      containers:
+      - image: rpicloud/demo-dog-service:dns-0.0.1
+        name: dog-service
