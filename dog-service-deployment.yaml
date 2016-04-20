@@ -19,3 +19,10 @@ spec:
       containers:
       - image: rpicloud/demo-dog-service:dns-0.0.1
         name: dog-service
+        livenessProbe:
+          httpGet:
+            # Path to probe; should be cheap, but representative of typical behavior
+            path: /
+            port: 80
+          initialDelaySeconds: 120
+          timeoutSeconds: 1
