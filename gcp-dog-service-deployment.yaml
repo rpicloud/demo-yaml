@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: 2016-04-24T19:04:38Z
+  generation: 1
+  labels:
+    run: dog-service
+    visualize: "true"
+  name: dog-service
+  namespace: default
+  resourceVersion: "2265"
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/dog-service
+  uid: 6432f2cf-0a4f-11e6-9f1d-42010af0012a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: dog-service
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: dog-service
+        visualize: "true"
+    spec:
+      containers:
+      - image: gcr.io/kubernetes-code-lab-1282/demo-dog-service:v1
+        imagePullPolicy: IfNotPresent
+        name: dog-service
+        ports:
+        - containerPort: 9001
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}

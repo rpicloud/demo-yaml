@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: 2016-04-24T19:12:23Z
+  labels:
+    run: cat-service
+  name: cat-service
+  namespace: default
+  resourceVersion: "2457"
+  selfLink: /api/v1/namespaces/default/services/cat-service
+  uid: 79549f8e-0a50-11e6-9f1d-42010af0012a
+spec:
+  clusterIP: 10.47.241.224
+  ports:
+  - port: 9000
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    run: cat-service
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

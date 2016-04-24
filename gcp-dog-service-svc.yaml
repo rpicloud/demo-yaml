@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: 2016-04-24T19:10:57Z
+  labels:
+    run: dog-service
+  name: dog-service
+  namespace: default
+  resourceVersion: "2424"
+  selfLink: /api/v1/namespaces/default/services/dog-service
+  uid: 465861e7-0a50-11e6-9f1d-42010af0012a
+spec:
+  clusterIP: 10.47.253.116
+  ports:
+  - port: 9001
+    protocol: TCP
+    targetPort: 9001
+  selector:
+    run: dog-service
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

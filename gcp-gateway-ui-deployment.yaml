@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: 2016-04-24T19:10:01Z
+  generation: 1
+  labels:
+    run: gateway-ui
+  name: gateway-ui
+  namespace: default
+  resourceVersion: "2388"
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/gateway-ui
+  uid: 24afcad1-0a50-11e6-9f1d-42010af0012a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: gateway-ui
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: gateway-ui
+    spec:
+      containers:
+      - image: gcr.io/kubernetes-code-lab-1282/demo-gateway-ui:v1
+        imagePullPolicy: IfNotPresent
+        name: gateway-ui
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}
