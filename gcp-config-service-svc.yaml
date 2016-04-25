@@ -4,6 +4,7 @@ metadata:
   creationTimestamp: 2016-04-24T19:17:07Z
   labels:
     run: config-service
+    visualize: "true"
   name: config-service
   namespace: default
   resourceVersion: "2650"

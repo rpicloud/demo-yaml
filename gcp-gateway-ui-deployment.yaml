@@ -5,6 +5,7 @@ metadata:
   generation: 1
   labels:
     run: gateway-ui
+    visualize: "true"
   name: gateway-ui
   namespace: default
   resourceVersion: "2388"
@@ -25,6 +26,7 @@ spec:
       creationTimestamp: null
       labels:
         run: gateway-ui
+        visualize: "true"
     spec:
       containers:
       - image: gcr.io/kubernetes-code-lab-1282/demo-gateway-ui:v1

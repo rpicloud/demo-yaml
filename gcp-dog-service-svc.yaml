@@ -4,6 +4,7 @@ metadata:
   creationTimestamp: 2016-04-24T19:10:57Z
   labels:
     run: dog-service
+    visualize: "true"
   name: dog-service
   namespace: default
   resourceVersion: "2424"

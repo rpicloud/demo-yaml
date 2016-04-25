@@ -4,6 +4,7 @@ metadata:
   creationTimestamp: 2016-04-24T19:43:12Z
   labels:
     run: gateway-ui
+    visualize: "true"
   name: gateway-ui
   namespace: default
   resourceVersion: "3133"

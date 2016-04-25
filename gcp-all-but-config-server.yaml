@@ -1,0 +1,216 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: 2016-04-24T19:04:38Z
+  generation: 1
+  labels:
+    run: cat-service
+    visualize: "true"
+  name: cat-service
+  namespace: default
+  resourceVersion: "2265"
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/cat-service
+  uid: 6432f2cf-0a4f-11e6-9f1d-42010af0012a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: cat-service
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: cat-service
+        visualize: "true"
+    spec:
+      containers:
+      - image: gcr.io/kubernetes-code-lab-1282/demo-cat-service:v1
+        imagePullPolicy: IfNotPresent
+        name: cat-service
+        ports:
+        - containerPort: 9000
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: 2016-04-24T19:12:23Z
+  labels:
+    run: cat-service
+    visualize: "true"
+  name: cat-service
+  namespace: default
+  resourceVersion: "2457"
+  selfLink: /api/v1/namespaces/default/services/cat-service
+  uid: 79549f8e-0a50-11e6-9f1d-42010af0012a
+spec:
+  clusterIP: 10.47.241.224
+  ports:
+  - port: 9000
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    run: cat-service
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: 2016-04-24T19:04:38Z
+  generation: 1
+  labels:
+    run: dog-service
+    visualize: "true"
+  name: dog-service
+  namespace: default
+  resourceVersion: "2265"
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/dog-service
+  uid: 6432f2cf-0a4f-11e6-9f1d-42010af0012a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: dog-service
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: dog-service
+        visualize: "true"
+    spec:
+      containers:
+      - image: gcr.io/kubernetes-code-lab-1282/demo-dog-service:v1
+        imagePullPolicy: IfNotPresent
+        name: dog-service
+        ports:
+        - containerPort: 9001
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: 2016-04-24T19:10:57Z
+  labels:
+    run: dog-service
+    visualize: "true"
+  name: dog-service
+  namespace: default
+  resourceVersion: "2424"
+  selfLink: /api/v1/namespaces/default/services/dog-service
+  uid: 465861e7-0a50-11e6-9f1d-42010af0012a
+spec:
+  clusterIP: 10.47.253.116
+  ports:
+  - port: 9001
+    protocol: TCP
+    targetPort: 9001
+  selector:
+    run: dog-service
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: 2016-04-24T19:10:01Z
+  generation: 1
+  labels:
+    run: gateway-ui
+    visualize: "true"
+  name: gateway-ui
+  namespace: default
+  resourceVersion: "2388"
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/gateway-ui
+  uid: 24afcad1-0a50-11e6-9f1d-42010af0012a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: gateway-ui
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: gateway-ui
+        visualize: "true"
+    spec:
+      containers:
+      - image: gcr.io/kubernetes-code-lab-1282/demo-gateway-ui:v1
+        imagePullPolicy: IfNotPresent
+        name: gateway-ui
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: 2016-04-24T19:43:12Z
+  labels:
+    run: gateway-ui
+    visualize: "true"
+  name: gateway-ui
+  namespace: default
+  resourceVersion: "3133"
+  selfLink: /api/v1/namespaces/default/services/gateway-ui
+  uid: c78f3751-0a54-11e6-9f1d-42010af0012a
+spec:
+  clusterIP: 10.47.244.102
+  ports:
+  - nodePort: 31986
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: gateway-ui
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer: {}

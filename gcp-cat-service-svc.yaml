@@ -4,6 +4,7 @@ metadata:
   creationTimestamp: 2016-04-24T19:12:23Z
   labels:
     run: cat-service
+    visualize: "true"
   name: cat-service
   namespace: default
   resourceVersion: "2457"

@@ -5,6 +5,7 @@ metadata:
   generation: 1
   labels:
     run: config-service
+    visualize: "true"
   name: config-service
   namespace: default
   resourceVersion: "2587"
@@ -24,6 +25,7 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
+        visualize: "true"
         run: config-service
     spec:
       containers:
