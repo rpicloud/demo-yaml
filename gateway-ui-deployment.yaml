@@ -17,5 +17,5 @@ spec:
         visualize: "true"
     spec:
       containers:
-      - image: rpicloud/demo-gateway-ui:dns-0.0.1
+      - image: rpicloud/demo-gateway-ui:v1
         name: gateway-ui

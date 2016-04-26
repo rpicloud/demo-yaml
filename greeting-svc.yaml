@@ -8,7 +8,7 @@ metadata:
   name: greeting-rpi
 spec:
   externalIPs:
-  - 192.168.1.81
+  - 192.168.1.71
   ports:
   - port: 8081
     protocol: TCP
