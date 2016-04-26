@@ -1,0 +1,172 @@
+################################################
+#### 										####
+#### 	 RASPBERRY PI KUBERNETES CLUSTER 	####
+####										####
+################################################
+
+BEFORE: 
+	- Boot up the config-service with the following command
+	---------------------------------------------------------
+	|	kubectl create -f config-service-deployment.yaml 	|
+	|	kubectl create -f config-service-svc.yaml 			|
+	---------------------------------------------------------
+	- Boot up the gateway-ui with the following command
+	
+	---------------------------------------------------------
+	|	kubectl create -f gateway-ui-deployment.yaml 		|
+	|	kubectl create -f gateway-ui-svc.yaml 				|
+	---------------------------------------------------------
+	
+	- Boot up the cat-service:v1 with the following command
+	
+	---------------------------------------------------------
+	|	kubectl create -f cat-service-v1-deployment.yaml 	|
+	|	kubectl create -f cat-service-svc.yaml 				|
+	---------------------------------------------------------
+
+
+DEMONSTRATION:
+
+1. Start by showing the visualizer: http://localhost:8001/static
+
+	---------------------------------------------------------
+	|	kubectl proxy --www=.								|
+	---------------------------------------------------------						
+	- explain what they see: Services=Green, Pods=grey, Deployments=Blue
+	- explain that we have already started a couple of microservices
+	- show the configuration-file from github: 
+
+		- LINK: https://github.com/rpicloud/demo-config/blob/master/gateway-ui.yml
+
+	- Explain about KubeDNS and how it gets resolved.
+
+2. Kubectl introduction - commandline tool for Kubernetes
+	- Start a dog-service by using kubectl run (explain why -l "visualize=true")
+
+	------------------------------------------------------------------------
+		kubectl run dog-service --image=rpicloud/demo-dog-service:v1 -l visualize="true",run=dog-service --replicas=2
+	------------------------------------------------------------------------
+
+	- Expose the dog-service (mention external/internal)
+
+	------------------------------------------------------------------------
+		kubectl expose deployment dog-service --port=9001 --target-port=9001
+	------------------------------------------------------------------------
+
+	- Briefly describe kubectl get deployments, pods, svc
+	- Briefly describe kubectl describe pods, svc
+	- Briefly describe kubectl logs -f <POD>
+
+3. Show the application
+
+		- LINK: http://192.168.1.71
+
+4. Declaritive configurations using YAML files
+	- Show the YAML file of the cat-service:v1
+	- Explain how the service connects with the deployments through the selector-labels.
+
+	---------------------------------------------------------
+	|	cat cat-service-v1-deployment.yaml 					|
+	|	cat cat-service-svc.yaml 							|
+	---------------------------------------------------------
+
+5. Canary - how easy it is to deploy a new version to a subset of the users
+	- Show the YAML file briefly
+
+	---------------------------------------------------------
+	|	cat cat-service-v2-canary.yml 						|
+	---------------------------------------------------------
+
+	- Deploy the canary version:
+
+	---------------------------------------------------------
+	|	kubectl create -f cat-service-v2-canary.yml 		|
+	---------------------------------------------------------
+
+	- In order to show you that the canary version is receiving request, we will do a small load test
+	- We use vegeta as a simple commandline load testing tool.
+	- Open 4 terminal windows and log each pod
+
+	---------------------------------------------------------
+	|	kubectl logs -f <POD> 								|
+	---------------------------------------------------------
+
+	- Start vegeta
+
+	------------------------------------------------------------------------
+		echo "GET http://192.168.1.71/cats" | vegeta attack -rate=50 -duration=20s -output=result.bin && vegeta report -inputs=result.bin
+	------------------------------------------------------------------------
+
+	We found a small bug and wants to fix that before putting version 2 in production
+
+	---------------------------------------------------------
+	|	kubectl delete -f cat-service-v2-canary.yaml 		|
+	---------------------------------------------------------
+
+6. We are satisfied with our canary test and wants to put version 2 in production
+	- Show the yaml file of version 2
+
+	---------------------------------------------------------
+	|	kubectl apply -f cat-service-v2-deployment.yaml 	|
+	---------------------------------------------------------
+
+	- Show the visualizer and how Kubernetes performs the rolling update
+	- This takes some time, but eventually version 2 will be deployed.
+
+
+################################################
+#### 										####
+#### 	 GOOGLE CONTAINER ENGINE DEMO	 	####
+####										####
+################################################
+
+1. Show console, both Container Registry and Container Engine
+	- Show how to can Create a Cluster.
+	- Explain a bit about the Container Registry
+		E.g. "gcloud docker push gcr.io/kubernetes-code-lab-1282/demo-dog-service:v1"
+
+2. Direct the terminal towards Google Cloud Engine
+
+	-------------------------------------------------------------
+	|	gcloud config set container/cluster demo-cluster 		|
+	|	gcloud container clusters get-credentials demo-cluster 	|
+	-------------------------------------------------------------
+
+3. Restart the visualizer
+4. Open a new terminal and start watching the hpa and deployments (Horizontal Pod Autoscaler)
+
+	---------------------------------------------------------
+	|	watch -n2 kubectl get hpa,Deployments 				|
+	---------------------------------------------------------
+
+4. Autoscale (25% is just for demo purpose. A better choice would be 80%)
+
+	-------------------------------------------------------------------------
+	|	kubectl autoscale deployment cat-service --max=5 --cpu-percent=25 	|
+	-------------------------------------------------------------------------
+
+5. You can also scale manual
+
+	---------------------------------------------------------
+	|	kubectl scale deployment cat-service --replicas=2 	|
+	---------------------------------------------------------
+
+6. Show the way that the initial service get an external ip
+	
+	--------- Dont run the command ---------------------------
+	kubectl expose deployment gateway-ui --type="LoadBalancer"
+
+	- Show the YAML file
+
+	---------------------------------------------------------
+	|	cat gcp-gateway-ui-svc.yaml 						|
+	---------------------------------------------------------
+
+
+
+#####################################################################
+Additional setup for Google Cloud Engine
+gcloud config set project kubernetes-code-lab-1282
+gcloud config set compute/zone europe-west1-d
+gcloud config set container/cluster demo-cluster
+gcloud container clusters get-credentials demo-cluster
