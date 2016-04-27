@@ -113,6 +113,9 @@ DEMONSTRATION:
 	- Show the visualizer and how Kubernetes performs the rolling update
 	- This takes some time, but eventually version 2 will be deployed.
 
+7. Pull the plug and show that the application
+	- Make sure to pull the plug where the config-service and cat-service isn't running.
+
 
 ################################################
 #### 										####
