@@ -148,6 +148,13 @@ DEMONSTRATION:
 	|	kubectl autoscale deployment cat-service --max=5 --cpu-percent=25 	|
 	-------------------------------------------------------------------------
 
+
+	- Run the load testing with Vegeta
+
+	-------------------------------------------------------------------------
+		echo "GET http://cluster.kaspernissen.dk/cats" | vegeta attack -rate=50 -duration=60s -output=result.bin && vegeta report -inputs=result.bin
+	-------------------------------------------------------------------------
+
 5. You can also scale manual
 
 	---------------------------------------------------------
