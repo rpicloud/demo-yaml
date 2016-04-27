@@ -74,13 +74,13 @@ DEMONSTRATION:
 	- Show the YAML file briefly
 
 	---------------------------------------------------------
-	|	cat cat-service-v2-canary.yml 						|
+	|	cat cat-service-v2-canary.yaml 						|
 	---------------------------------------------------------
 
 	- Deploy the canary version:
 
 	---------------------------------------------------------
-	|	kubectl create -f cat-service-v2-canary.yml 		|
+	|	kubectl create -f cat-service-v2-canary.yaml 		|
 	---------------------------------------------------------
 
 	- In order to show you that the canary version is receiving request, we will do a small load test
